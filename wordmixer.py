@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request
+import random
 
 app = Flask(__name__)
 
 def mix_word(word):
-    return word
+    return ''.join(random.sample(word, k=len(word)))
 
 @app.route('/')
 def index():

@@ -2,13 +2,17 @@ import pytest
 from wordmixer import mix_word, app as wordapp
 
 word = ['aaaa','abab','hello']
-@pytest.mark.parametrize('word', ['aaaa','abab','hello'])
+@pytest.mark.parametrize('word', word)
 def test_mix_word(word):
     actual = mix_word(word)
     assert len(word) == len(actual)
     for letter in word:
         assert letter in actual
-    assert word != actual
+    nb_unique_letters = len(set(word))
+    if nb_unique_letters > 1:
+        assert word != actual
+    else :
+        assert word == actual
 
 
 
@@ -28,5 +32,10 @@ def client(app):
 @pytest.mark.parametrize('word', word)
 def test_mix(client, word):
     response = client.get(f"/mix?word={word}")
-    assert word not in response.data.decode('utf-8')
-
+    nb_unique_letters = len(set(word))
+    if nb_unique_letters > 1:
+        assert word not in response.data.decode('utf-8')
+    else :
+        assert word in response.data.decode('utf-8')
+    
+    
