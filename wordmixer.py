@@ -1,8 +1,12 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 @app.route('/')
 
 def index():
-    return "OK"
+    return render_template('index.html')
+
+@app.route('/mix')
+def result():
+    return 'word mixed'
