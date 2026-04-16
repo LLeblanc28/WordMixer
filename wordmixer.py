@@ -1,17 +1,19 @@
-from flask import Flask, render_template, request
-import random
+from flask import Flask, render_template
+from wordmixer_service import MixWordService
+import flask
+import time
+import os
 
 app = Flask(__name__)
 
-def mix_word(word):
-    return ''.join(random.sample(word, k=len(word)))
-
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
 
-@app.route('/mix')
+@app.route('/mix', methods=['GET'])
 def result():
-    word = request.args.get('word', '')
-    wordmixed = mix_word(word)
+    word = flask.request.args.get('word', '')
+    sleep_time = int(os.getenv('SLEEP_TIME', '0'))
+    time.sleep(sleep_time)
+    wordmixed = MixWordService.mix_word(word)
     return wordmixed

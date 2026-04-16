@@ -1,0 +1,35 @@
+services:
+  hub:
+    image: selenium/hub:latest
+    ports:
+      - "4444:4444"
+
+  browser-edge:
+    image: selenium/node-edge:latest
+    shm_size: 2g
+    environment:
+      - SE_EVENT_BUS_HOST=hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+  browser-chrome:
+    image: selenium/node-chrome:latest
+    shm_size: 2g
+    environment:
+      - SE_EVENT_BUS_HOST=hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+  browser-chromium:
+    image: selenium/node-chromium:latest
+    shm_size: 2g
+    environment:
+      - SE_EVENT_BUS_HOST=hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+  wordmixer:
+     build: 
+      dockerfile: Dockerfile
+      context: ..
+
+

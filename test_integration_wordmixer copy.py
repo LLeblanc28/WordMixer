@@ -1,18 +1,6 @@
 import pytest
 from wordmixer import mix_word, app as wordapp
-
-word = ['aaaa','abab','hello']
-@pytest.mark.parametrize('word', word)
-def test_mix_word(word):
-    actual = mix_word(word)
-    assert len(word) == len(actual)
-    for letter in word:
-        assert letter in actual
-    nb_unique_letters = len(set(word))
-    if nb_unique_letters > 1:
-        assert word != actual
-    else :
-        assert word == actual
+from test_unit_wordmixer import word
 
 
 

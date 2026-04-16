@@ -1,0 +1,9 @@
+services:
+  wordmixer:
+    build:
+      dockerfile: Dockerfile
+      context: ..
+    ports:
+      - "5000:5000"
+    environment:
+      - SLEEP_TIME=2
