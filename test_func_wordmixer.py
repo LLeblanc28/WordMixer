@@ -32,8 +32,13 @@ def target_port():
     load_dotenv()
     return os.getenv('TARGET_PORT', '5000')
 
-def test_with_selenium(driver, target_host, target_port):
-    driver.get(f"http://{target_host}:{target_port}")
+@pytest.fixture()
+def target_scheme():
+    load_dotenv()
+    return os.getenv('TARGET_SCHEME', 'http')
+
+def test_with_selenium(driver, target_scheme, target_host, target_port):
+    driver.get(f"{target_scheme}://{target_host}:{target_port}")
     # input text
     input_word = driver.find_element(by=By.ID, value="word")
     input_word.send_keys("hello")
@@ -46,12 +51,12 @@ def test_with_selenium(driver, target_host, target_port):
     result_shuffled_word = driver.find_element(by=By.XPATH, value="/html/body")
     assert "hello" != result_shuffled_word.text
     
-def test_do_not_found(driver, target_host, target_port):
-    driver.get(f"http://{target_host}:{target_port}")
+def test_do_not_found(driver, target_scheme, target_host, target_port):
+    driver.get(f"{target_scheme}://{target_host}:{target_port}")
     with pytest.raises(NoSuchElementException):
         driver.find_element(by=By.ID, value='none')
 
-def test_do_not_found_empty(driver, target_host, target_port):
-    driver.get(f"http://{target_host}:{target_port}")
+def test_do_not_found_empty(driver, target_scheme, target_host, target_port):
+    driver.get(f"{target_scheme}://{target_host}:{target_port}")
     result = driver.find_elements(by=By.ID, value='none')
     assert len(result) == 0
