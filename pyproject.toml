@@ -5,11 +5,16 @@ requires-python = ">=3.13"
 dependencies = [
     "flask>=3.1.2",
     "flask-wtf>=1.2.2",
+    "pytest-cov>=7.1.0",
     "selenium>=4.40.0",
 ]
 
 [dependency-groups]
 dev = [
+    "coverage>=7.13.5",
+    "flask>=3.1.2",
+    "flask-wtf>=1.2.2",
     "pytest>=9.0.2",
+    "python-dotenv>=1.2.2",
     "selenium>=4.40.0",
 ]

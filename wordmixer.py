@@ -1,13 +1,13 @@
 from flask import Flask, render_template
 from wordmixer_service import MixWordService
-from flask_wtf_csrf import CSRFProtect
+from flask_wtf.csrf import CSRFProtect
 import flask
 import time
 import os
 
 
 app = Flask(__name__)
-app.secret_key = 'thisissecret'
+app.SECRET_KEY = 'thisissecret'
 csrf = CSRFProtect(app)
 
 @app.route('/', methods=['GET'])

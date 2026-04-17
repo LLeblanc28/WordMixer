@@ -2,7 +2,7 @@ FROM python:3.13
 USER root
 RUN mkdir /opt/app
 WORKDIR /opt/app
-RUN pip install flask
+RUN pip install flask flask_wtf
 COPY wordmixer.py /opt/app
 COPY wordmixer_service.py /opt/app/
 RUN mkdir /opt/app/templates

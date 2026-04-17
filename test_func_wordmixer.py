@@ -22,6 +22,11 @@ def driver():
     yield driver
     driver.quit()
 
+@pytest.fixture
+def target_scheme():
+    load_dotenv()
+    return os.getenv('TARGET_SCHEME', 'http')
+
 @pytest.fixture()
 def target_host():
     load_dotenv()
@@ -31,11 +36,6 @@ def target_host():
 def target_port():
     load_dotenv()
     return os.getenv('TARGET_PORT', '5000')
-
-@pytest.fixture()
-def target_scheme():
-    load_dotenv()
-    return os.getenv('TARGET_SCHEME', 'http')
 
 def test_with_selenium(driver, target_scheme, target_host, target_port):
     driver.get(f"{target_scheme}://{target_host}:{target_port}")
